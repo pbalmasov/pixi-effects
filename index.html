@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flip Effect</title>
+    <style>
+    .big {
+        width: 800px;
+        height: 800px;
+        background: antiquewhite;
+    }
+
+    .medium {
+        width: 400px;
+        height: 400px;
+        background: lightcoral;
+    }
+
+    .small {
+        width: 200px;
+        height: 200px;
+        background: lightgoldenrodyellow;
+    }
+    </style>
+</head>
+<body>
+<div class="big"
+     data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg"}}'></div>
+<div class="medium"></div>
+<div class="small"
+     data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg"}}'></div>
+<script src="./src/flip-effect.js"></script>
+<script>
+createPIXIApplication(document.querySelector(".medium"), {
+  options: {
+    frontImage: "assets/chebur.jpg",
+    backImage: "assets/karlson.jpg",
+  },
+});
+</script>
+</body>
+</html>
