@@ -9,9 +9,8 @@
   },
   "scripts": {
     "dev": "parcel index.html",
-    "build": "parcel build indexn.html",
+    "build": "parcel build index.html -d build --public-url .",
     "publish": "npm publish --access public",
-    "minify": "uglifyjs --mangle --compress -- js/flip-effect.js > js/flip-effect.min.js",
     "prettify": "prettier --trailing-comma=es5 --single-quote --print-width=120 --write ./js/flip-effect.js"
   },
   "dependencies": {

@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Flip Effect</title>
     <style>
+    body{
+        margin: 0;
+    }
     .big {
         width: 800px;
         height: 800px;
@@ -21,21 +24,83 @@
         height: 200px;
         background: lightgoldenrodyellow;
     }
+
+    body > div {
+        display: flex;
+    }
+
+    code {
+        background-color: #eee;
+        border: 1px solid #999;
+        display: block;
+        padding: 20px;
+    }
     </style>
 </head>
 <body>
-<div class="big"
-     data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg"}}'></div>
-<div class="medium"></div>
-<div class="small"
-     data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg"}}'></div>
+<div>
+    <div class="big"></div>
+    <pre><code>{
+  isFlip: true,
+  frontImage: "assets/hockey.jpg",
+  backImage: "assets/karlson.jpg",
+  direction: -1,
+  offset: 0.5,
+}</code></pre>
+</div>
+<div>
+    <div class="big"
+         data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg","offset":1}}'></div>
+    <pre><code>{
+    "options":{
+    "frontImage":"assets/chebur.jpg",
+    "backImage":"assets/karlson.jpg",
+    "offset":1
+    }
+}</code></pre>
+</div>
+<div>
+    <div class="medium"
+         data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg","offset":0,"isFront":false}}'></div>
+    <pre><code>{
+    "options":{
+    "frontImage":"assets/chebur.jpg",
+    "backImage":"assets/karlson.jpg",
+    "offset":0,
+    "isFront":false
+    }
+}</code></pre>
+</div>
+<div>
+    <div class="small"
+         data-flip-effect='{"options":{"frontImage":"assets/winnie.jpg","backImage":"assets/rabbit.jpg","offset":0.3}}'></div>
+    <pre><code>{
+  "options": {
+    "frontImage": "assets/winnie.jpg",
+    "backImage": "assets/rabbit.jpg",
+    "offset": 0.3
+  }
+}</code></pre>
+</div>
+<div>
+    <div class="small"
+         data-flip-effect='{"options":{"frontImage":"assets/winnie.jpg","backImage":"assets/rabbit.jpg","flipDuration":5}}'></div>
+    <pre><code>{
+  "options": {
+    "frontImage": "assets/winnie.jpg",
+    "backImage": "assets/rabbit.jpg",
+    "flipDuration": 5
+  }
+}</code></pre>
+</div>
 <script src="./src/flip-effect.js"></script>
 <script>
-createPIXIApplication(document.querySelector(".medium"), {
-  options: {
-    frontImage: "assets/chebur.jpg",
-    backImage: "assets/karlson.jpg",
-  },
+createPIXIApplication(document.querySelector(".big"), undefined, {
+  isFlip: true,
+  frontImage: "assets/hockey.jpg",
+  backImage: "assets/karlson.jpg",
+  direction: -1,
+  offset: 0.5,
 });
 </script>
 </body>

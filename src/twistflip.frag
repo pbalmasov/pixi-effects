@@ -3,8 +3,8 @@ precision mediump float;
 varying vec2 vUvs;
 varying float progress;
 
-uniform sampler2D uSampler1;
-uniform sampler2D uSampler2;
+uniform sampler2D frontTexture;
+uniform sampler2D backTexture;
 uniform bool isFront;
 
 void main() {
@@ -12,10 +12,10 @@ void main() {
     vec4 col;
 
     if( progress < 0.5 ){
-      col = isFront ? texture2D( uSampler1, _vUvs ) : texture2D( uSampler2, _vUvs );
+      col = isFront ? texture2D( frontTexture, _vUvs ) : texture2D( backTexture, _vUvs );
     }else{
       _vUvs.x = abs( vUvs.x - 1.0 );
-      col = isFront ? texture2D( uSampler2, _vUvs ) : texture2D( uSampler1, _vUvs );
+      col = isFront ? texture2D( backTexture, _vUvs ) : texture2D( frontTexture, _vUvs );
     }
     float coef = -(progress - 0.5);
     coef = 1.0 + (coef > 0.0 ? (0.5 - coef) * 0.5 : (-0.5 - coef) * 1.5 );

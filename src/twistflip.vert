@@ -1,5 +1,5 @@
 precision mediump float;
-      
+
 const float PI = 3.141592653589793;
 const float PIh = 1.5707963267948966;
 const float PI2 = 6.283185307179586;
