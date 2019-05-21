@@ -3,4 +3,4 @@ node_modules
 dist
 .idea
 build/assets
-build/index.html
+docs
