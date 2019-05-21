@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <title>Flip Effect</title>
     <style>
-    body{
-        margin: 0;
-    }
+
     .big {
         width: 800px;
         height: 800px;
@@ -27,31 +25,61 @@
 
     body > div {
         display: flex;
+        margin: 20px;
     }
 
+    div pre {
+        margin: 20px;
+    }
+
+    div pre code {
+        display: block;
+    }
+    pre{
+        display: inline-block;
+    }
     code {
         background-color: #eee;
         border: 1px solid #999;
-        display: block;
         padding: 20px;
     }
     </style>
 </head>
 <body>
-<div>
-    <div class="big"></div>
-    <pre><code>{
-  isFlip: true,
-  frontImage: "assets/hockey.jpg",
-  backImage: "assets/karlson.jpg",
-  direction: -1,
-  offset: 0.5,
-}</code></pre>
-</div>
+<h4 id="npminstall">Установка</h4>
+
+<pre><code class="sh language-sh">npm install git+http://gitlab.peppers-studio.ru:88/peppers/190516_1.git
+</code></pre>
+
+<p>Импортирование эффекта</p>
+
+<pre><code class="js language-js">import 'flip-effect'
+</code></pre>
+<h4>Создание элемента</h4>
+<p>Используя data атрибута принимающего json объекта в виде строки:
+<pre><code>&lt;div data-flip-effect='{&quot;options&quot;:{&quot;frontImage&quot;:&quot;assets/chebur.jpg&quot;,&quot;backImage&quot;:&quot;assets/karlson.jpg&quot;,&quot;offset&quot;:1}}'&gt;&lt;/div&gt;</code></pre></p>
+<p>Свойство <b>appOptions</b> объекта передает параметры в конструктор <a
+        href="http://pixijs.download/dev/docs/PIXI.Application.html#Application">PIXI.Application</a></p>
+<p>Свойство <b>options</b> объекта:</p>
+<pre><code><b>frontImage</b> (String)</code></pre>
+- ссылка на переднюю текстуру</p>
+<p>
+<pre><code><b>backImage</b> (String)</code></pre>
+- ссылка на заднюю текстуру</p>
+<p>
+<pre><code><b>offset</b> (Number)</code></pre>
+- запаздывание(на сколько сильно закручивается) (0 - не закручивается,
+0.2 - по умолчанию, 1 - сильно закручивается)</p>
+<p>
+<pre><code><b>duration</b> (Number)</code></pre>
+- время переворота</p>
+<p>
+<pre><code><b>isFlip</b> (Boolean)</code></pre>
+- первая показываемая сторона</p>
 <div>
     <div class="big"
          data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg","offset":1}}'></div>
-    <pre><code>{
+    <pre>Опции:<code>{
     "options":{
     "frontImage":"assets/chebur.jpg",
     "backImage":"assets/karlson.jpg",
@@ -62,7 +90,7 @@
 <div>
     <div class="medium"
          data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg","offset":0,"isFront":false}}'></div>
-    <pre><code>{
+    <pre>Опции:<code>{
     "options":{
     "frontImage":"assets/chebur.jpg",
     "backImage":"assets/karlson.jpg",
@@ -74,7 +102,7 @@
 <div>
     <div class="small"
          data-flip-effect='{"options":{"frontImage":"assets/winnie.jpg","backImage":"assets/rabbit.jpg","offset":0.3}}'></div>
-    <pre><code>{
+    <pre>Опции:<code>{
   "options": {
     "frontImage": "assets/winnie.jpg",
     "backImage": "assets/rabbit.jpg",
@@ -85,7 +113,7 @@
 <div>
     <div class="small"
          data-flip-effect='{"options":{"frontImage":"assets/winnie.jpg","backImage":"assets/rabbit.jpg","flipDuration":5}}'></div>
-    <pre><code>{
+    <pre>Опции:<code>{
   "options": {
     "frontImage": "assets/winnie.jpg",
     "backImage": "assets/rabbit.jpg",
@@ -93,13 +121,21 @@
   }
 }</code></pre>
 </div>
-<script src="./src/flip-effect.js"></script>
-<script>
-createPIXIApplication(document.querySelector(".big"), undefined, {
+<div>
+    <div id="custom" class="big"></div>
+    <pre>Создан программно.<br>Опции:<code>{
   isFlip: true,
   frontImage: "assets/hockey.jpg",
   backImage: "assets/karlson.jpg",
-  direction: -1,
+  offset: 0.5,
+}</code></pre>
+</div>
+<script src="./src/flip-effect.js"></script>
+<script>
+createPIXIApplication(document.getElementById("custom"), undefined, {
+  isFlip: true,
+  frontImage: "assets/hockey.jpg",
+  backImage: "assets/karlson.jpg",
   offset: 0.5,
 });
 </script>

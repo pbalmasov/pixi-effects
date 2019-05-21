@@ -112,11 +112,14 @@ export class FlipPIXIApplication extends Application {
     this.view.addEventListener("tap", this.onFlipClick);
     this.stage.addChild(this.flipSprite);
     this.resizeSprite(this.flipSprite);
+    this.render();
   }
 
   onResize() {
     const parent = this.view.parentNode;
     this.renderer.resize(parent.clientWidth, parent.clientHeight);
+    this.resizeSprite(this.flipSprite);
+    this.render();
   }
 
   onFlipClick() {
@@ -128,7 +131,6 @@ export class FlipPIXIApplication extends Application {
     flipSprite.position.set(this.screen.width / 2, this.screen.height / 2);
     const scale = Math.min(this.screen.width / orig.width, (this.screen.height * 0.8) / orig.height);
     flipSprite.scale.set(scale);
-    this.render();
   }
 
   destroy(removeView, stageOptions) {
