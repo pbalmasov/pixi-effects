@@ -1,7 +1,9 @@
 {
   "name": "flip-effect",
   "version": "1.0.0",
-  "main": "src/flip-effect.js",
+  "main": "build/flip-effect.js",
+  "source": "src/flip-effect.js",
+  "module": "src/flip-effect.js",
   "devDependencies": {
     "glslify-bundle": "^5.1.1",
     "glslify-deps": "^1.3.1",
