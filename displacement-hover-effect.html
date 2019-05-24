@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flip Effect</title>
+    <style>
+
+    .big {
+        width: 800px;
+        height: 800px;
+        background: antiquewhite;
+    }
+
+    .medium {
+        width: 400px;
+        height: 400px;
+        background: lightcoral;
+    }
+
+    .small {
+        width: 200px;
+        height: 200px;
+        background: lightgoldenrodyellow;
+    }
+
+    body > div {
+        display: flex;
+        margin: 20px;
+    }
+
+    div pre {
+        margin: 20px;
+    }
+
+    div pre code {
+        display: block;
+    }
+    pre{
+        display: inline-block;
+    }
+    code {
+        background-color: #eee;
+        border: 1px solid #999;
+        padding: 20px;
+    }
+    </style>
+</head>
+<body>
+<h4 id="npminstall">Установка</h4>
+
+<pre><code class="sh language-sh">npm install git+http://gitlab.peppers-studio.ru:88/peppers/190516_1.git
+</code></pre>
+
+<p>Импортирование эффекта</p>
+
+<pre><code class="js language-js">import 'flip-effect'
+</code></pre>
+<h4>Создание элемента</h4>
+<p>Используя data атрибута принимающего json объекта в виде строки:
+<pre><code>&lt;div data-displacement-effect='{&quot;options&quot;:{&quot;frontImage&quot;:&quot;assets/displacement/images/chebur.jpg&quot;,&quot;backImage&quot;:&quot;assets/displacement/images/karlson.jpg&quot;,&quot;offset&quot;:1}}'&gt;&lt;/div&gt;</code></pre></p>
+<p>Свойство <b>appOptions</b> объекта передает параметры в конструктор <a
+        href="http://pixijs.download/dev/docs/PIXI.Application.html#Application">PIXI.Application</a></p>
+<p>Свойство <b>options</b> объекта:</p>
+<pre><code><b>frontImage</b> (String)</code></pre>
+- ссылка на переднюю текстуру</p>
+<p>
+<pre><code><b>backImage</b> (String)</code></pre>
+- ссылка на заднюю текстуру</p>
+<p>
+<pre><code><b>offset</b> (Number)</code></pre>
+- запаздывание(на сколько сильно закручивается) (0 - не закручивается,
+0.2 - по умолчанию, 1 - сильно закручивается)</p>
+<p>
+<pre><code><b>duration</b> (Number)</code></pre>
+- время переворота</p>
+<p>
+<pre><code><b>isFlip</b> (Boolean)</code></pre>
+- первая показываемая сторона</p>
+<div>
+    <div class="big"
+         data-displacement-effect='{"options":{"intensity1":0.1,"intensity2":0.1,"angle2":180,"image1":"assets/displacement/images/ny.jpg","image2":"assets/displacement/images/ny-info.jpg","displacementImage":"assets/displacement/stripe1mul.png"}}'></div>
+    <pre>Опции:<code>{
+  options: {
+    intensity1: 0.1,
+    intensity2: 0.1,
+    angle2: 180,
+    image1: 'assets/displacement/images/ny.jpg',
+    image2: 'assets/displacement/images/ny-info.jpg',
+    displacementImage: 'assets/displacement/stripe1mul.png'
+  }
+}
+</code></pre>
+</div>
+<div>
+    <div id="custom" class="big"></div>
+</div>
+<script src="src/displacement-hover-effect/displacement-hover-effect.js"></script>
+<script>
+createDisplacementPIXIApplication(document.getElementById("custom"), undefined, {
+  intensity: 0.2,
+  image1: 'assets/displacement/images/balloon.jpg',
+  image2: 'assets/displacement/images/balloon2.jpg',
+  displacementImage: 'assets/displacement/ramen.jpg'
+});
+</script>
+</body>
+</html>
