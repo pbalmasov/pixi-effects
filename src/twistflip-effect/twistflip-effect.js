@@ -1,26 +1,32 @@
-import vertex from "./twistflip.vert";
-import frag from "./twistflip.frag";
-import { Application, Shader, Loader, Mesh, Geometry } from "pixi.js";
-import { TweenLite } from "gsap/TweenLite";
-import { Sine } from "gsap/EasePack";
+import vertex from './twistflip.vert';
+import frag from './twistflip.frag';
+import { Application, Shader, Loader, Mesh, Geometry } from 'pixi.js';
+import { TweenLite } from 'gsap/TweenLite';
+import { Sine } from 'gsap/EasePack';
 
 export class FlipSprite extends Mesh {
-  constructor(width, height, frontTexture, backTexture, { widthSegments = 5, heightSegments = 20, isFront = true, offset = 0.2 }) {
-    const shader = Shader.from(vertex, frag,
-      {
-        frontTexture,
-        backTexture,
-        isFront,
-        time: 0,
-        offset,
-      });
+  constructor(
+    width,
+    height,
+    frontTexture,
+    backTexture,
+    { widthSegments = 5, heightSegments = 20, isFront = true, offset = 0.2 },
+  ) {
+
+    const shader = Shader.from(vertex, frag, {
+      frontTexture,
+      backTexture,
+      isFront,
+      value: 0,
+      offset,
+    });
 
     const positions = [];
     const uvs = [];
     const indices = [];
 
-    const stp_x = width / widthSegments;
-    const stp_y = height / heightSegments;
+    const stp_x = Math.round(width / widthSegments);
+    const stp_y = Math.round(height / heightSegments);
     const stp_u = 1 / widthSegments;
     const stp_v = 1 / heightSegments;
     const wh = width / 2;
@@ -38,12 +44,14 @@ export class FlipSprite extends Mesh {
         indices.push(ind, ind + 1, ind + 2, ind, ind + 2, ind + 3);
       }
     }
-    super(new Geometry()
-      .addAttribute('aVertexPosition', positions, 2)
-      .addAttribute('aUvs', uvs, 2)
-      .addIndex(indices)
-      .interleave(), shader);
-    this.texture = frontTexture;
+    super(
+      new Geometry()
+        .addAttribute('aVertexPosition', positions, 2)
+        .addAttribute('aUvs', uvs, 2)
+        .addIndex(indices)
+        .interleave(),
+      shader,
+    );
     this.offset = offset;
   }
 
@@ -54,15 +62,14 @@ export class FlipSprite extends Mesh {
 
   reverse() {
     this.shader.uniforms.isFront = !this.shader.uniforms.isFront;
-    this.shader.uniforms.time = 0;
+    this.shader.uniforms.value = 0;
   }
 
   flip(duration = 1, offset, onComplete) {
-    if (this.flipTween && this.flipTween.isActive())
-      return this.flipTween;
+    if (this.flipTween && this.flipTween.isActive()) return this.flipTween;
     if (offset !== undefined) this.shader.uniforms.offset = offset;
     this.flipTween = TweenLite.to(this.shader.uniforms, duration, {
-      time: 1,
+      value: 1,
       ease: Sine.easeInOut,
       onComplete: () => {
         this.reverse();
@@ -83,7 +90,8 @@ export class FlipPIXIApplication extends Application {
       autoResize: true,
       antialias: true,
       transparent: true,
-      resolution: devicePixelRatio, ...appOptions,
+      resolution: devicePixelRatio,
+      ...appOptions,
     });
     const { frontImage, backImage } = options;
     this.options = options;
@@ -91,25 +99,30 @@ export class FlipPIXIApplication extends Application {
     const loader = new Loader();
     loader.onError.add(e => console.error(e));
     loader.onComplete.add(this.initFilter.bind(this));
-    loader.add("front", frontImage);
-    loader.add("back", backImage);
+    loader.add('front', frontImage);
+    loader.add('back', backImage);
     loader.load();
 
-    view.style.position = "relative";
+    view.style.position = 'relative';
     const { style } = this.view;
-    style.position = "absolute";
+    style.position = 'absolute';
     style.top = style.left = style.bottom = style.right = 0;
     view.appendChild(this.view);
 
     this.onResize = this.onResize.bind(this);
     this.onFlipClick = this.onFlipClick.bind(this);
-    window.addEventListener("resize", this.onResize);
+    window.addEventListener('resize', this.onResize);
   }
 
-  initFilter({ resources: { front: { texture: front }, back: { texture: back } } }) {
-    this.flipSprite = new FlipSprite(front.orig.width, front.orig.height, front, back, this.options);
-    this.view.addEventListener("click", this.onFlipClick);
-    this.view.addEventListener("tap", this.onFlipClick);
+  initFilter({
+               resources: {
+                 front: { texture: front },
+                 back: { texture: back },
+               },
+             }) {
+    this.flipSprite = new FlipSprite(this.options.width || front.orig.width, this.options.height || front.orig.height, front, back, this.options);
+    this.view.addEventListener('click', this.onFlipClick);
+    this.view.addEventListener('tap', this.onFlipClick);
     this.stage.addChild(this.flipSprite);
     this.resizeSprite(this.flipSprite);
     this.render();
@@ -127,48 +140,43 @@ export class FlipPIXIApplication extends Application {
   }
 
   resizeSprite(flipSprite) {
-    const { orig } = flipSprite.texture;
-    flipSprite.position.set(this.screen.width / 2, this.screen.height / 2);
-    const scale = Math.min(this.screen.width / orig.width, (this.screen.height * 0.8) / orig.height);
+    flipSprite.position.set(Math.floor(this.screen.width / 2), Math.floor(this.screen.height / 2));
+    const scale = Math.min(this.screen.width / flipSprite.width, (this.screen.height * 0.8) / flipSprite.height);
     flipSprite.scale.set(scale);
   }
 
   destroy(removeView, stageOptions) {
     this.options = null;
-    this.view.removeEventListener("click", this.onFlipClick);
-    this.view.removeEventListener("tap", this.onFlipClick);
-    window.removeEventListener("resize", this.onResize);
+    this.view.removeEventListener('click', this.onFlipClick);
+    this.view.removeEventListener('tap', this.onFlipClick);
+    window.removeEventListener('resize', this.onResize);
     this.onResize = null;
     this.onFlipClick = null;
     super.destroy(removeView, stageOptions);
   }
 }
 
-export function createPIXIApplication(view, appOptions, options) {
+export function createFlipPIXIApplication(view, appOptions, options) {
   if (!view) {
-    console.error("View variable not defined");
+    console.error('View variable not defined');
     return;
   }
   if (!options) {
-    console.error("Options not defined");
+    console.error('Options not defined');
     return;
   }
   const { frontImage, backImage } = options;
   if (!frontImage || !backImage) {
-    console.error("Both images not defined");
+    console.error('Both images not defined');
     return;
   }
 
   return new FlipPIXIApplication(view, appOptions, options);
 }
 
+window.createFlipPIXIApplication = createFlipPIXIApplication;
 
-window.createPIXIApplication = createPIXIApplication;
-
-document.querySelectorAll("[data-flip-effect]").forEach(item => {
-  const { appOptions, options } = JSON.parse(item.dataset.flipEffect);
-  createPIXIApplication(item, appOptions, options);
+document.querySelectorAll('[data-twistflip-effect]').forEach(item => {
+  const { appOptions, options } = JSON.parse(item.dataset.twistflipEffect);
+  createFlipPIXIApplication(item, appOptions, options);
 });
-
-
-

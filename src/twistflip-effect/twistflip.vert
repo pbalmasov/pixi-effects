@@ -12,13 +12,13 @@ uniform mat3 projectionMatrix;
 
 varying vec2 vUvs;
 varying float progress;
-uniform float time;
+uniform float value;
 uniform float offset;
 
 void main() {
 
   vUvs = aUvs;
-  progress =  max( 0.0, min( 1.0, time * (1.0 + offset) - vUvs.y * offset) );
+  progress =  max( 0.0, min( 1.0, value * (1.0 + offset) - vUvs.y * offset) );
   float t = PIh - progress * PI;
 
   float rot_pos_x = sin( t );

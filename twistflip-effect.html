@@ -57,7 +57,7 @@
 </code></pre>
 <h4>Создание элемента</h4>
 <p>Используя data атрибута принимающего json объекта в виде строки:
-<pre><code>&lt;div data-flip-effect='{&quot;options&quot;:{&quot;frontImage&quot;:&quot;assets/chebur.jpg&quot;,&quot;backImage&quot;:&quot;assets/karlson.jpg&quot;,&quot;offset&quot;:1}}'&gt;&lt;/div&gt;</code></pre></p>
+<pre><code>&lt;div data-twistflip-effect='{&quot;options&quot;:{&quot;frontImage&quot;:&quot;assets/twistflip/pow2/chebur.jpg&quot;,&quot;backImage&quot;:&quot;assets/twistflip/pow2/karlson.jpg&quot;,&quot;offset&quot;:1}}'&gt;&lt;/div&gt;</code></pre></p>
 <p>Свойство <b>appOptions</b> объекта передает параметры в конструктор <a
         href="http://pixijs.download/dev/docs/PIXI.Application.html#Application">PIXI.Application</a></p>
 <p>Свойство <b>options</b> объекта:</p>
@@ -78,22 +78,22 @@
 - первая показываемая сторона</p>
 <div>
     <div class="big"
-         data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg","offset":1}}'></div>
+         data-twistflip-effect='{"options":{"frontImage":"assets/twistflip/pow2/chebur.jpg","backImage":"assets/twistflip/pow2/karlson.jpg","width":541,"height":822,"offset":1}}'></div>
     <pre>Опции:<code>{
     "options":{
-    "frontImage":"assets/chebur.jpg",
-    "backImage":"assets/karlson.jpg",
+    "frontImage":"assets/twistflip/pow2/chebur.jpg",
+    "backImage":"assets/twistflip/pow2/karlson.jpg",
     "offset":1
     }
 }</code></pre>
 </div>
 <div>
     <div class="medium"
-         data-flip-effect='{"options":{"frontImage":"assets/chebur.jpg","backImage":"assets/karlson.jpg","offset":0,"isFront":false}}'></div>
+         data-twistflip-effect='{"options":{"frontImage":"assets/twistflip/pow2/chebur.jpg","backImage":"assets/twistflip/pow2/karlson.jpg","offset":0,"width":541,"height":822,"isFront":false}}'></div>
     <pre>Опции:<code>{
     "options":{
-    "frontImage":"assets/chebur.jpg",
-    "backImage":"assets/karlson.jpg",
+    "frontImage":"assets/twistflip/pow2/chebur.jpg",
+    "backImage":"assets/twistflip/pow2/karlson.jpg",
     "offset":0,
     "isFront":false
     }
@@ -101,23 +101,22 @@
 </div>
 <div>
     <div class="small"
-         data-flip-effect='{"options":{"frontImage":"assets/winnie.jpg","backImage":"assets/rabbit.jpg","offset":0.3}}'></div>
+         data-twistflip-effect='{"options":{"frontImage":"assets/twistflip/pow2/winnie.jpg","backImage":"assets/twistflip/pow2/rabbit.jpg","offset":0.3,"width":541,"height":822}}'></div>
     <pre>Опции:<code>{
   "options": {
-    "frontImage": "assets/winnie.jpg",
-    "backImage": "assets/rabbit.jpg",
+    "frontImage": "assets/twistflip/pow2/winnie.jpg",
+    "backImage": "assets/twistflip/pow2/rabbit.jpg",
     "offset": 0.3
   }
 }</code></pre>
 </div>
 <div>
     <div class="small"
-         data-flip-effect='{"options":{"frontImage":"assets/winnie.jpg","backImage":"assets/rabbit.jpg","flipDuration":5}}'></div>
+         data-twistflip-effect='{"options":{"frontImage":"assets/twistflip/winnie.jpg","backImage":"assets/twistflip/rabbit.jpg","width":541,"height":822}}'></div>
     <pre>Опции:<code>{
   "options": {
-    "frontImage": "assets/winnie.jpg",
-    "backImage": "assets/rabbit.jpg",
-    "flipDuration": 5
+    "frontImage": "assets/twistflip/winnie.jpg",
+    "backImage": "assets/twistflip/rabbit.jpg"
   }
 }</code></pre>
 </div>
@@ -125,17 +124,19 @@
     <div id="custom" class="big"></div>
     <pre>Создан программно.<br>Опции:<code>{
   isFlip: true,
-  frontImage: "assets/hockey.jpg",
-  backImage: "assets/karlson.jpg",
+  frontImage: "assets/twistflip/pow2/hockey.jpg",
+  backImage: "assets/twistflip/pow2/karlson.jpg",
   offset: 0.5,
 }</code></pre>
 </div>
-<script src="./src/flip-effect.js"></script>
+<script src="src/twistflip-effect/twistflip-effect.js"></script>
 <script>
-createPIXIApplication(document.getElementById("custom"), undefined, {
+createFlipPIXIApplication(document.getElementById("custom"), undefined, {
+  width:541,
+  height:822,
   isFlip: true,
-  frontImage: "assets/hockey.jpg",
-  backImage: "assets/karlson.jpg",
+  frontImage: "assets/twistflip/pow2/hockey.jpg",
+  backImage: "assets/twistflip/pow2/karlson.jpg",
   offset: 0.5,
 });
 </script>
