@@ -1,10 +1,8 @@
 import vert from './displacement.vert';
 import frag from './displacement.frag';
-import { Application, Shader, Loader, Mesh, Geometry, utils, MeshMaterial, defaultVertex } from 'pixi.js';
+import { Application, Shader, Loader, Mesh, Geometry} from 'pixi.js';
 import { TweenLite } from 'gsap/TweenLite';
 import { Sine } from 'gsap/EasePack';
-
-console.log(defaultVertex);
 
 export class DisplacementSprite extends Mesh {
 
@@ -14,7 +12,7 @@ export class DisplacementSprite extends Mesh {
     firstTexture,
     secondTexture,
     displacementTexture,
-    { widthSegments = 5, heightSegments = 20, angle1 = 45, angle2 = 45, intensity1 = 1, intensity2 = 1 },
+    { angle1 = 45, angle2 = 45, intensity1 = 1, intensity2 = 1 },
   ) {
 
     const shader = Shader.from(vert, frag, {

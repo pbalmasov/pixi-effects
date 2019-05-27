@@ -25,23 +25,23 @@ export class FlipSprite extends Mesh {
     const uvs = [];
     const indices = [];
 
-    const stp_x = Math.round(width / widthSegments);
-    const stp_y = Math.round(height / heightSegments);
-    const stp_u = 1 / widthSegments;
-    const stp_v = 1 / heightSegments;
+    const stepX = Math.round(width / widthSegments);
+    const stepY = Math.round(height / heightSegments);
+    const stepU = 1 / widthSegments;
+    const stepV = 1 / heightSegments;
     const wh = width / 2;
     const hh = height / 2;
 
     for (let _y = 0; _y < heightSegments; _y++) {
       for (let _x = 0; _x < widthSegments; _x++) {
-        const ind = positions.length / 2;
-        const x = -wh + _x * stp_x;
-        const y = -hh + _y * stp_y;
-        positions.push(x, y, x + stp_x, y, x + stp_x, y + stp_y, x, y + stp_y);
-        const u = _x * stp_u;
-        const v = _y * stp_v;
-        uvs.push(u, v, u + stp_u, v, u + stp_u, v + stp_v, u, v + stp_v);
-        indices.push(ind, ind + 1, ind + 2, ind, ind + 2, ind + 3);
+        const index = positions.length / 2;
+        const x = -wh + _x * stepX;
+        const y = -hh + _y * stepY;
+        positions.push(x, y, x + stepX, y, x + stepX, y + stepY, x, y + stepY);
+        const u = _x * stepU;
+        const v = _y * stepV;
+        uvs.push(u, v, u + stepU, v, u + stepU, v + stepV, u, v + stepV);
+        indices.push(index, index + 1, index + 2, index, index + 2, index + 3);
       }
     }
     super(
@@ -52,7 +52,6 @@ export class FlipSprite extends Mesh {
         .interleave(),
       shader,
     );
-    this.offset = offset;
   }
 
   setTextures(frontTexture, backTexture) {
@@ -114,12 +113,7 @@ export class FlipPIXIApplication extends Application {
     window.addEventListener('resize', this.onResize);
   }
 
-  initFilter({
-               resources: {
-                 front: { texture: front },
-                 back: { texture: back },
-               },
-             }) {
+  initFilter({ resources: { front: { texture: front }, back: { texture: back } } }) {
     this.flipSprite = new FlipSprite(this.options.width || front.orig.width, this.options.height || front.orig.height, front, back, this.options);
     this.view.addEventListener('click', this.onFlipClick);
     this.view.addEventListener('tap', this.onFlipClick);
@@ -136,7 +130,7 @@ export class FlipPIXIApplication extends Application {
   }
 
   onFlipClick() {
-    this.flipSprite.flip(this.options.flipDuration).vars.onUpdate = () => this.render();
+    this.flipSprite.flip(this.options.duration).vars.onUpdate = () => this.render();
   }
 
   resizeSprite(flipSprite) {
